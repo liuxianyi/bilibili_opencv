@@ -1,7 +1,7 @@
 '''
 Author: goog
 Date: 2021-07-17 22:18:26
-LastEditTime: 2021-07-17 22:36:56
+LastEditTime: 2021-07-17 22:44:42
 LastEditors: goog
 Description: 
 FilePath: /GithubSyn/bilibili_opencv/HandMarkRecognition/AIVirtualMouseProject.py
@@ -62,7 +62,7 @@ while True:
             plocX, plocY = clocX, clocY # 记录上次位置
 
         # 8. Both Index and middle fingers are up : Clicking Mode
-        if fingers[1] == 1 and fingers[2] == 1: # 食指和中指伸直间距大于40 点击
+        if fingers[1] == 1 and fingers[2] == 1: # 食指和中指伸直间距小于40 点击
             # 9. Find distance between fingers
             length, img, lineInfo = detector.findDistance(8, 12, img)
             # print(length)
