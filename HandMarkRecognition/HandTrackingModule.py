@@ -28,7 +28,7 @@ class handDetector():
         self.hands = self.mpHands.Hands(self.mode, self.maxHands,
         self.detectionCon, self.trackCon) # 初始化Hands模块 设置图片输入为视频流处理 识别最多手数目 手部检测置信 手部关键点置信
         self.mpDraw = mp.solutions.drawing_utils # 记载MediaPipe自带绘图工具
-        self.tipIds = [4, 8, 12, 16, 20]
+        self.tipIds = [4, 8, 12, 16, 20] # id分别代表五个指头指尖
 
     def findHands(self, img, draw=True):
         imgRGB = cv2.cvtColor(img, cv2.COLOR_BGR2RGB) # 通道转化为RGB
@@ -88,11 +88,11 @@ class handDetector():
     def fingersUp(self):
         fingers = []
         # Thumb
-        if self.lmList[self.tipIds[0]][1] > self.lmList[self.tipIds[0] - 1][1]:
-            fingers.append(1)
+        if self.lmList[self.tipIds[0]][1] > self.lmList[self.tipIds[0] - 1][1]: # 判断拇指是否弯曲
+            fingers.append(1) # 未弯曲
         else:
-            fingers.append(0)
-        # 4 Fingers
+            fingers.append(0) # 弯曲
+        # 4 Fingers 判断另外四个指头状态
         for id in range(1, 5):
             if self.lmList[self.tipIds[id]][2] < self.lmList[self.tipIds[id] - 2][2]:
                 fingers.append(1)
@@ -102,17 +102,17 @@ class handDetector():
 
     def findDistance(self, p1, p2, img, draw=True):
 
-        x1, y1 = self.lmList[p1][1], self.lmList[p1][2]
-        x2, y2 = self.lmList[p2][1], self.lmList[p2][2]
-        cx, cy = (x1 + x2) // 2, (y1 + y2) // 2
+        x1, y1 = self.lmList[p1][1], self.lmList[p1][2] # p1关键点xy
+        x2, y2 = self.lmList[p2][1], self.lmList[p2][2] # p2关键点xy
+        cx, cy = (x1 + x2) // 2, (y1 + y2) // 2 # 中点
         
-        if draw:
+        if draw: # 绘制p1，p2，并连线， 中点 
             cv2.circle(img, (x1, y1), 15, (255, 0, 255), cv2.FILLED)
             cv2.circle(img, (x2, y2), 15, (255, 0, 255), cv2.FILLED)
             cv2.line(img, (x1, y1), (x2, y2), (255, 0, 255), 3)
             cv2.circle(img, (cx, cy), 15, (255, 0, 255), cv2.FILLED)
         
-        length = math.hypot(x2 - x1, y2 - y1)
+        length = math.hypot(x2 - x1, y2 - y1) # 两点距离
         return length, img, [x1, y1, x2, y2, cx, cy]
 
 def main():

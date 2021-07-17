@@ -1,7 +1,7 @@
 '''
 Author: goog
 Date: 2021-07-16 10:50:38
-LastEditTime: 2021-07-17 18:27:46
+LastEditTime: 2021-07-17 21:13:26
 LastEditors: goog
 Description: 
 FilePath: /GithubSyn/bilibili_opencv/HandMarkRecognition/VolumeControl.py
@@ -70,7 +70,7 @@ while True:
         volBar = np.interp(length, [50, 300], [400, 150])
         volPer = np.interp(length, [50, 300], [0, 100])
         print(int(length), vol)
-        # volume.SetMasterVolumeLevel(vol, None) # 设置音量
+        volume.SetMasterVolumeLevel(vol, None) # 设置音量
 
         if length < 50:
             cv2.circle(img, (cx, cy), 15, (0, 255, 0), cv2.FILLED) 
