@@ -1,7 +1,7 @@
 <!--
  * @Author: goog
  * @Date: 2021-07-17 09:33:10
- * @LastEditTime: 2021-07-17 18:07:10
+ * @LastEditTime: 2021-07-17 18:44:06
  * @LastEditors: goog
  * @Description: #
  * @FilePath: /GithubSyn/bilibili_opencv/README.md
@@ -9,9 +9,9 @@
 -->
 # bilibili_opencv
 ## Requirement
-🌟 opencv-pyhton
-🌟 mediapipe
-🌟 ctypes
+🌟 opencv-pyhton  
+🌟 mediapipe  
+🌟 ctypes  
 🌟 pycaw
 
 ## 21 hand landmarks
