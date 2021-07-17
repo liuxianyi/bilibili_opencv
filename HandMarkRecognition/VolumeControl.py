@@ -47,8 +47,9 @@ volPer = 0
 while True:
     success, img = cap.read()
     img = detector.findHands(img) 
-    lmList = detector.findPosition(img, draw=False) # 获取21个坐标xy
-    if len(lmList) != 0:
+    lmList,_ = detector.findPosition(img, draw=False) # 获取21个坐标xy
+    #print(len(lmList))
+    if len(lmList) > 8:
         # print(lmList[4], lmList[8])
 
         x1, y1 = lmList[4][1], lmList[4][2] # 食指指尖xy
@@ -67,16 +68,16 @@ while True:
         # Volume Range -65 - 0
 
         vol = np.interp(length, [50, 300], [minVol, maxVol]) # 线性一维插值, 大概意思：50-300里的length映射为范围为minVOl-maxVol音量的大小为多少
-        volBar = np.interp(length, [50, 300], [400, 150])
+        volBar = np.interp(length, [50, 300], [400, 150]) 
         volPer = np.interp(length, [50, 300], [0, 100])
-        print(int(length), vol)
-        # volume.SetMasterVolumeLevel(vol, None) # 设置音量
+        # print(int(length), vol)
+        volume.SetMasterVolumeLevel(vol, None) # 设置音量
 
         if length < 50:
             cv2.circle(img, (cx, cy), 15, (0, 255, 0), cv2.FILLED) 
 
-    cv2.rectangle(img, (50, 150), (85, 400), (255, 0, 0), 3)
-    cv2.rectangle(img, (50, int(volBar)), (85, 400), (255, 0, 0), cv2.FILLED)
+    cv2.rectangle(img, (50, 150), (85, 400), (255, 0, 0), 3) # 音量框
+    cv2.rectangle(img, (50, int(volBar)), (85, 400), (255, 0, 0), cv2.FILLED) # 实际音量
     cv2.putText(img, f'{int(volPer)} %', (40, 450), cv2.FONT_HERSHEY_COMPLEX,
                 1, (255, 0, 0), 3)
 
