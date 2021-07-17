@@ -83,6 +83,7 @@ class handDetector():
                 cv2.rectangle(img, (bbox[0] - 20, bbox[1] - 20),
             (bbox[2] + 20, bbox[3] + 20), (0, 255, 0), 2) # 绘制方框框中手掌
         #print(len(self.lmList))
+        self.lmList = lmList
         return lmList, bbox # 返回坐标及框坐标
 
     def fingersUp(self):

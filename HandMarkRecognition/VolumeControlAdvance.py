@@ -20,7 +20,7 @@ from pycaw.pycaw import AudioUtilities, IAudioEndpointVolume
 wCam, hCam = 640, 480
 ################################
 
-cap = cv2.VideoCapture(1)
+cap = cv2.VideoCapture(0)
 cap.set(3, wCam)
 cap.set(4, hCam)
 pTime = 0
@@ -67,14 +67,14 @@ while True:
 
             # Reduce Resolution to make it smoother
             smoothness = 10
-            volPer = smoothness * round(volPer / smoothness) # 舍去volPer的个位，稳定
+            volPer = smoothness * round(volPer / smoothness) # 舍去volPer的个位，稳定，是音量都是10的倍数
 
             # Check fingers up
-            fingers = detector.fingersUp()
-            # print(fingers)
+            fingers = detector.fingersUp() # 判断手指状态
+            #print(fingers)
 
             # If pinky is down set volume
-            if not fingers[4]:
+            if not fingers[4]: # 小指弯曲设置改变音量
                 volume.SetMasterVolumeLevelScalar(volPer / 100, None) # 设置音量
                 cv2.circle(img, (lineInfo[4], lineInfo[5]), 15, (0, 255, 0), cv2.FILLED)
                 colorVol = (0, 255, 0)
@@ -82,11 +82,11 @@ while True:
                 colorVol = (255, 0, 0)
 
     # Drawings
-    cv2.rectangle(img, (50, 150), (85, 400), (255, 0, 0), 3)
-    cv2.rectangle(img, (50, int(volBar)), (85, 400), (255, 0, 0), cv2.FILLED)
+    cv2.rectangle(img, (50, 150), (85, 400), (255, 0, 0), 3) # 音量框
+    cv2.rectangle(img, (50, int(volBar)), (85, 400), (255, 0, 0), cv2.FILLED) # 实际音量
     cv2.putText(img, f'{int(volPer)} %', (40, 450), cv2.FONT_HERSHEY_COMPLEX,
-                1, (255, 0, 0), 3)
-    cVol = int(volume.GetMasterVolumeLevelScalar() * 100)
+                1, (255, 0, 0), 3) # 显示音量百分比
+    cVol = int(volume.GetMasterVolumeLevelScalar() * 100) # 显示当前音量
     cv2.putText(img, f'Vol Set: {int(cVol)}', (400, 50), cv2.FONT_HERSHEY_COMPLEX,
                 1, colorVol, 3)
 
