@@ -1,7 +1,7 @@
 '''
 Author: goog
 Date: 2021-07-16 10:50:38
-LastEditTime: 2021-07-17 21:13:26
+LastEditTime: 2021-07-17 21:54:06
 LastEditors: goog
 Description: 
 FilePath: /GithubSyn/bilibili_opencv/HandMarkRecognition/VolumeControl.py
@@ -70,11 +70,7 @@ while True:
         vol = np.interp(length, [50, 300], [minVol, maxVol]) # 线性一维插值, 大概意思：50-300里的length映射为范围为minVOl-maxVol音量的大小为多少
         volBar = np.interp(length, [50, 300], [400, 150]) 
         volPer = np.interp(length, [50, 300], [0, 100])
-<<<<<<< HEAD
         print(int(length), vol)
-=======
-        # print(int(length), vol)
->>>>>>> c3d2402fc9a25e4d259f600d2e68a4baf3016ad6
         volume.SetMasterVolumeLevel(vol, None) # 设置音量
 
         if length < 50:
