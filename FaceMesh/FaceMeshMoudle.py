@@ -1,7 +1,7 @@
 '''
 Author: goog
 Date: 2021-07-17 22:53:22
-LastEditTime: 2021-07-17 22:59:10
+LastEditTime: 2021-07-21 17:34:12
 LastEditors: goog
 Description: 
 FilePath: /GithubSyn/bilibili_opencv/FaceMesh/FaceMeshMoudle.py
@@ -17,16 +17,16 @@ class FaceMeshDetector():
 
     def __init__(self, staticMode=False, maxFaces=2, minDetectionCon=0.5, minTrackCon=0.5):
 
-        self.staticMode = staticMode
-        self.maxFaces = maxFaces
-        self.minDetectionCon = minDetectionCon
-        self.minTrackCon = minTrackCon
+        self.staticMode = staticMode # 模式选择 false 开启动态
+        self.maxFaces = maxFaces # 识别面部最大数目
+        self.minDetectionCon = minDetectionCon # 人脸检测置信
+        self.minTrackCon = minTrackCon # 关键点检测置信
 
-        self.mpDraw = mp.solutions.drawing_utils
-        self.mpFaceMesh = mp.solutions.face_mesh
+        self.mpDraw = mp.solutions.drawing_utils # 工具类
+        self.mpFaceMesh = mp.solutions.face_mesh 
         self.faceMesh = self.mpFaceMesh.FaceMesh(self.staticMode, self.maxFaces,
-        self.minDetectionCon, self.minTrackCon)
-        self.drawSpec = self.mpDraw.DrawingSpec(thickness=1, circle_radius=2)
+        self.minDetectionCon, self.minTrackCon) # face mesh 模块
+        self.drawSpec = self.mpDraw.DrawingSpec(thickness=1, circle_radius=2) # 线条类型设置
 
     def findFaceMesh(self, img, draw=True):
         self.imgRGB = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
@@ -36,33 +36,37 @@ class FaceMeshDetector():
             for faceLms in self.results.multi_face_landmarks:
                 if draw:
                     self.mpDraw.draw_landmarks(img, faceLms, self.mpFaceMesh.FACE_CONNECTIONS,
-                    self.drawSpec, self.drawSpec)
+                    self.drawSpec, self.drawSpec) # 绘制所有关键点 设置线条类型
                 face = []
                 for id,lm in enumerate(faceLms.landmark):
                     #print(lm)
+                    # x,y,z
+                    # x 范围0-1
+                    # y 范围0-1
+                    # z 范围 与x大致相同
                     ih, iw, ic = img.shape
                     x,y = int(lm.x*iw), int(lm.y*ih)
                     #cv2.putText(img, str(id), (x, y), cv2.FONT_HERSHEY_PLAIN,
                     # 0.7, (0, 255, 0), 1)
 
                     #print(id,x,y)
-                    face.append([x,y])
+                    face.append([x,y]) # 记录坐标值
                 faces.append(face)
         return img, faces
 
 def main():
-    cap = cv2.VideoCapture("Videos/1.mp4")
+    cap = cv2.VideoCapture(0)
     pTime = 0
     detector = FaceMeshDetector(maxFaces=2)
     while True:
         success, img = cap.read()
         img, faces = detector.findFaceMesh(img)
         if len(faces)!= 0:
-            print(faces[0])
+            # print(faces[0])
             cTime = time.time()
-            fps = 1 / (cTime – pTime)
+            fps = 1 / (cTime - pTime)
             pTime = cTime
-            cv2.putText(img, f’FPS: {int(fps)}’, (20, 70), cv2.FONT_HERSHEY_PLAIN,
+            cv2.putText(img, f'FPS: {int(fps)}', (20, 70), cv2.FONT_HERSHEY_PLAIN,
             3, (0, 255, 0), 3)
             cv2.imshow("Image", img)
             cv2.waitKey(1)
