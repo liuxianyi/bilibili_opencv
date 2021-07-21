@@ -1,7 +1,7 @@
 <!--
  * @Author: goog
  * @Date: 2021-07-17 09:33:10
- * @LastEditTime: 2021-07-21 23:11:54
+ * @LastEditTime: 2021-07-21 23:12:58
  * @LastEditors: goog
  * @Description: #
  * @FilePath: /GithubSyn/bilibili_opencv/README.md
@@ -24,7 +24,8 @@
 - real-time 
 
 A detector that operates on the full image and computes face locations and a 3D face landmark model that operates on those locations and predicts the approximate surface geometry via regression. 
-![face mesh](./resources/face_mesh_ar_effects.gif)
+![face mesh](./resources/face_mesh_ar_effects.gif)  
+
 [paper🔗](https://arxiv.org/abs/1907.06724)
 ## [Iris](https://google.github.io/mediapipe/solutions/iris.html)
 - iris
@@ -34,7 +35,8 @@ A detector that operates on the full image and computes face locations and a 3D 
 - Through use of iris landmarks, the solution is also able to determine the **metric distance between the subject and the camera** with relative error less than 10%. 
 - **Note:** that iris tracking does **not infer the location** at which people are looking, **nor does it provide any form of identity recognition**.      
 
-![iris](./resources/iris_tracking_eye_and_iris_landmarks.png)
+![iris](./resources/iris_tracking_eye_and_iris_landmarks.png)  
+
 [paper🔗](https://arxiv.org/abs/2006.11341)
 ## 21 hand landmarks
 ![hand landmakrs](./resources/hand_landmarks.png)
