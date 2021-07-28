@@ -23,8 +23,8 @@ batch_size_val=50  # how many to process together
 steps_per_epoch_val=2000
 epochs_val=10
 imageDimesions = (32,32,3)
-testRatio = 0.2    # if 1000 images split will 200 for testing
-validationRatio = 0.2 # if 1000 images 20% of remaining 800 will be 160 for validation
+testRatio = 0.2    # if 1000 images split will 200 for testing 测试集占比
+validationRatio = 0.2 # if 1000 images 20% of remaining 800 will be 160 for validation 验证机占比
 ###################################################
  
  
