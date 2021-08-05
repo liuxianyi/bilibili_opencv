@@ -1,13 +1,14 @@
 <!--
  * @Author: goog
  * @Date: 2021-07-17 09:33:10
- * @LastEditTime: 2021-08-05 21:09:24
+ * @LastEditTime: 2021-08-05 21:58:24
  * @LastEditors: goog
  * @Description: #
  * @FilePath: /GithubSyn/bilibili_opencv/README.md
  * Time Limit Exceeded!
 -->
 # bilibili_opencv
+![](./resources/mediapipe_small.png)
 ## Requirement
 🌟 opencv-pyhton  
 🌟 mediapipe  
