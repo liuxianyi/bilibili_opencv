@@ -1,7 +1,7 @@
 <!--
  * @Author: goog
  * @Date: 2021-07-17 09:33:10
- * @LastEditTime: 2021-07-28 21:47:02
+ * @LastEditTime: 2021-08-05 21:09:24
  * @LastEditors: goog
  * @Description: #
  * @FilePath: /GithubSyn/bilibili_opencv/README.md
@@ -40,6 +40,11 @@ A detector that operates on the full image and computes face locations and a 3D 
 [paper🔗](https://arxiv.org/abs/2006.11341)
 ## 21 hand landmarks
 ![hand landmakrs](./resources/hand_landmarks.png)
+
+## Pose
+- 33 3D landmark
+
+![pose landmark](./resources/pose_tracking_full_body_landmarks.png)
 ## synchronize bilibili [xiao liu time grocery store](https://space.bilibili.com/144585110)  opencv code
 
 【计算机视觉OpenCV】【中英字幕】Opencv实现手部轮廓识别 [code🔗](https://github.com/liuxianyi/bilibili_opencv/blob/main/HandMarkRecognition/HandTrackingMdule.py) [video🔗](https://www.bilibili.com/video/BV1Hv411n7LK?t=146)  
@@ -54,7 +59,9 @@ A detector that operates on the full image and computes face locations and a 3D 
 【计算机视觉OpenCV】「中文字幕」人脸关键点检测**多个人脸 面部六个关键点** [code🔗](./FaceDetection/FaceDetectionMoudle.py) [video🔗<a style="color:red">待更</a>]()  
 【计算机视觉OpenCV】「中文字幕」手指数量识别 [code🔗<a style="color:red">待更</a>]() [video🔗](https://www.bilibili.com/video/BV1Th411z73s/)  
 【计算机视觉OpenCV】「中文字幕」创建一个自己的python包 [code🔗<a style="color:red">待更</a>]() [video🔗](https://www.bilibili.com/video/BV1wP4y1t7Hk/)  
-【计算机视觉OpenCV】「中文字幕」人脸检测 [code🔗<a style="color:red">待更</a>]() [video🔗](https://www.bilibili.com/video/BV1MM4y1N7Zq/)  
+【计算机视觉OpenCV】「中文字幕」人脸检测 [code🔗](./FaceDetection/FaceDetectionMoudle.py) [video🔗](https://www.bilibili.com/video/BV1MM4y1N7Zq/)  
+【计算机视觉OpenCV】「中文字幕」姿势估计 [code🔗](./FaceDetection/PoseModule.py) [video🔗](https://www.bilibili.com/video/BV1qy4y1j7Gy/)  
+
 ## [MediaPipe Python Github🔗](https://github.com/google/mediapipe/tree/master/mediapipe/python)
 
 
