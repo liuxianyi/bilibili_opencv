@@ -1,7 +1,7 @@
 <!--
  * @Author: goog
  * @Date: 2021-07-17 09:33:10
- * @LastEditTime: 2021-08-05 21:58:24
+ * @LastEditTime: 2021-08-06 10:11:40
  * @LastEditors: goog
  * @Description: #
  * @FilePath: /GithubSyn/bilibili_opencv/README.md
@@ -46,8 +46,27 @@ A detector that operates on the full image and computes face locations and a 3D 
 - 33 3D landmark
 
 ![pose landmark](./resources/pose_tracking_full_body_landmarks.png)
-## synchronize bilibili [xiao liu time grocery store](https://space.bilibili.com/144585110)  opencv code
 
+
+## Holistic
+- integrate
+- pose
+- face
+- hand
+- multi-stage pipeline
+- 540+ landmark
+![](./resources/holistic_pipeline_example.jpg)
+步骤：
+<ol>
+    <li>对整幅图利用pose检测器和landmark检测器实现姿态估计</li>
+    <li>利用第一步的landmark获取三部分ROI（1. two hands 2. face）</li>
+    <li>使用re-crop改进ROI选取</li>
+    <li>裁剪</li>
+    <li>使用特定任务模型实现face、hand估计对应的landmark</li>
+    <li>合并所有的landmark</li>
+</ol>
+
+## synchronize bilibili [xiao liu time grocery store](https://space.bilibili.com/144585110)  opencv code
 【计算机视觉OpenCV】【中英字幕】Opencv实现手部轮廓识别 [code🔗](https://github.com/liuxianyi/bilibili_opencv/blob/main/HandMarkRecognition/HandTrackingMdule.py) [video🔗](https://www.bilibili.com/video/BV1Hv411n7LK?t=146)  
 【计算机视觉OpenCV】「中文字幕」手势控制音量 [code🔗](./HandMarkRecognition/VolumeControl.py) [video🔗](https://www.bilibili.com/video/BV1jK4y1u7AB)   
 【计算机视觉OpenCV】「中文字幕」手势控制音量**高级** [code🔗](./HandMarkRecognition/VolumeControlAdvance.py) [video🔗](https://www.bilibili.com/video/BV1qM4y1K7Un)    
