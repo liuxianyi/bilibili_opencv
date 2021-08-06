@@ -1,7 +1,7 @@
 <!--
  * @Author: goog
  * @Date: 2021-07-17 09:33:10
- * @LastEditTime: 2021-08-06 10:11:40
+ * @LastEditTime: 2021-08-06 21:15:41
  * @LastEditors: goog
  * @Description: #
  * @FilePath: /GithubSyn/bilibili_opencv/README.md
@@ -65,6 +65,22 @@ A detector that operates on the full image and computes face locations and a 3D 
     <li>使用特定任务模型实现face、hand估计对应的landmark</li>
     <li>合并所有的landmark</li>
 </ol>
+
+## selfie Segmentation  
+- close(<2m) to the camera
+- real time  
+
+<video id="video" controls="" preload="none" poster="作者(图片地址)">
+<source id="mp4" src="./resources/selfie_segmentation_web.mp4" type="video/mp4">
+</video>
+
+步骤：
+<ol>
+    <li>two models: general and landscape</li>
+    <li>general model: output segmentation mask</li>
+    <li>landscape(Background): 1. similar to the general model 2.runs faster</li>
+</ol>
+
 
 ## synchronize bilibili [xiao liu time grocery store](https://space.bilibili.com/144585110)  opencv code
 【计算机视觉OpenCV】【中英字幕】Opencv实现手部轮廓识别 [code🔗](https://github.com/liuxianyi/bilibili_opencv/blob/main/HandMarkRecognition/HandTrackingMdule.py) [video🔗](https://www.bilibili.com/video/BV1Hv411n7LK?t=146)  
