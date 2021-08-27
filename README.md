@@ -1,7 +1,7 @@
 <!--
  * @Author: goog
  * @Date: 2021-07-17 09:33:10
- * @LastEditTime: 2021-08-27 11:14:27
+ * @LastEditTime: 2021-08-27 13:37:06
  * @LastEditors: goog
  * @Description: #
  * @FilePath: /GithubSyn/bilibili_opencv/README.md
@@ -95,6 +95,15 @@ A detector that operates on the full image and computes face locations and a 3D 
 |sink|水槽|refrigerator|冰箱|blender|搅拌机|book|书|clock|时钟|vase|花瓶|scissors|剪刀|teddy bear|泰迪熊|hair drier|吹风机|toothbrush|牙刷|
 |hair brush|毛刷|
 
+## [Face Recognition](./FaceAttendance)
+```python
+import cv2
+import numpy as np
+import face_recognition
+```
+本项目face_recognition是一个强大、简单、易上手的人脸识别开源项目，并且配备了完整的开发文档和应用案例，特别是兼容树莓派系统。
+[➡️more Details](https://github.com/ageitgey/face_recognition/blob/master/README_Simplified_Chinese.md)
+
 
 
 
@@ -105,11 +114,11 @@ A detector that operates on the full image and computes face locations and a 3D 
 【计算机视觉OpenCV】「中文字幕」手势控制音量**高级** [code🔗](./HandMarkRecognition/VolumeControlAdvance.py) [video🔗](https://www.bilibili.com/video/BV1qM4y1K7Un)    
 【计算机视觉OpenCV】「中文字幕」虚拟鼠标**手指控制电脑鼠标** [code🔗](./HandMarkRecognition/AIVirtualMouseProject.py) [video🔗](https://www.bilibili.com/video/BV1ZV411W7T8)   
 【计算机视觉OpenCV】「中文字幕」卷积神经网络实现交通标志识别 [train code🔗](./TrafficSignClassifation/TrainCode.py) [test code🔗](./TrafficSignClassifation/TestCode.py)[video🔗](https://www.bilibili.com/video/BV11U4y1379f) [数据集🔗 提取码: 39q4](https://pan.baidu.com/s/15v14ieSPZntBTDzKVckEgA)   
-【计算机视觉OpenCV】「中文字幕」人脸识别实现**出勤率统计** [<a style="color:red">待更</a>code🔗]() [video🔗](https://www.bilibili.com/video/BV1Dv411J7st) [数据集🔗<a style="color:red">待更</a>]()    
-【计算机视觉OpenCV】「中文字幕」目标检测**高精度实时** [code🔗](./ObjectDetection/detection.py) [video🔗](https://www.bilibili.com/video/BV1ZV411H7KS) [训练模型🔗提取码: mvxs](https://pan.baidu.com/s/1gr_2bl8zlYHF6cG-K3JVZw)    
+【计算机视觉OpenCV】「中文字幕」人脸识别实现**出勤率统计** [code🔗](./FaceAttendance/recognition.py) [video🔗](https://www.bilibili.com/video/BV1Dv411J7st)    
+【计算机视觉OpenCV】「中文字幕」目标检测**高精度实时** [code🔗](./ObjectDetection/detection.py) [非极大值抑制code🔗](./ObjectDetection/NMSDetection.py)[video🔗](https://www.bilibili.com/video/BV1ZV411H7KS) [训练模型🔗提取码: mvxs](https://pan.baidu.com/s/1gr_2bl8zlYHF6cG-K3JVZw)    
 【计算机视觉OpenCV】「中文字幕」实现背景替换**仿照腾讯会议** [<a style="color:red">待更</a>code🔗]() [video🔗](https://www.bilibili.com/video/BV1vM4y1T765/)    
 【计算机视觉OpenCV】「中文字幕」FaceMesh**多个人脸 面部468个关键点** [code🔗](./FaceMesh/FaceMeshMoudle.py) [video🔗](https://www.bilibili.com/video/BV1bb4y1r7n7/)  
-【计算机视觉OpenCV】「中文字幕」人脸关键点检测**多个人脸 面部六个关键点** [code🔗](./FaceDetection/FaceDetectionMoudle.py) [video🔗<a style="color:red">待更</a>]()  
+【计算机视觉OpenCV】「中文字幕」人脸关键点检测**多个人脸 面部六个关键点** [code🔗](./FaceDetection/FaceDetectionMoudle.py)   
 【计算机视觉OpenCV】「中文字幕」手指数量识别 [code🔗](./FingerDount/count.py) [video🔗](https://www.bilibili.com/video/BV1Th411z73s/)  
 【计算机视觉OpenCV】「中文字幕」创建一个自己的python包 [code🔗<a style="color:red">待更</a>]() [video🔗](https://www.bilibili.com/video/BV1wP4y1t7Hk/)  
 【计算机视觉OpenCV】「中文字幕」人脸检测 [code🔗](./FaceDetection/FaceDetectionMoudle.py) [video🔗](https://www.bilibili.com/video/BV1MM4y1N7Zq/)  
