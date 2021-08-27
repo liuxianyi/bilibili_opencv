@@ -20,15 +20,15 @@ from keras.preprocessing.image import ImageDataGenerator
 path = "myData" # folder with all the class folders
 labelFile = 'labels.csv' # file with all names of classes
 batch_size_val=50  # how many to process together
-steps_per_epoch_val=2000
-epochs_val=10
-imageDimesions = (32,32,3)
+steps_per_epoch_val=2000 # 迭代次数
+epochs_val=10 # 整个训练集训练次数
+imageDimesions = (32,32,3) # 32*32的彩色图
 testRatio = 0.2    # if 1000 images split will 200 for testing 测试集占比
 validationRatio = 0.2 # if 1000 images 20% of remaining 800 will be 160 for validation 验证机占比
 ###################################################
  
  
-############################### Importing of the Images
+############################### Importing of the Images 加载图像与标签
 count = 0
 images = []
 classNo = []
@@ -45,10 +45,11 @@ for x in range (0,len(myList)):
     print(count, end =" ")
     count +=1
 print(" ")
+# 存着对应的图片信息和标签
 images = np.array(images)
 classNo = np.array(classNo)
  
-############################### Split Data
+############################### Split Data 分割test集和验证集
 X_train, X_test, y_train, y_test = train_test_split(images, classNo, test_size=testRatio)
 X_train, X_validation, y_train, y_validation = train_test_split(X_train, y_train, test_size=validationRatio)
  
@@ -57,9 +58,12 @@ X_train, X_validation, y_train, y_validation = train_test_split(X_train, y_train
  
 ############################### TO CHECK IF NUMBER OF IMAGES MATCHES TO NUMBER OF LABELS FOR EACH DATA SET
 print("Data Shapes")
-print("Train",end = "");print(X_train.shape,y_train.shape)
-print("Validation",end = "");print(X_validation.shape,y_validation.shape)
-print("Test",end = "");print(X_test.shape,y_test.shape)
+print("Train",end = "");
+print(X_train.shape,y_train.shape)
+print("Validation",end = "");
+print(X_validation.shape,y_validation.shape)
+print("Test",end = "");
+print(X_test.shape,y_test.shape)
 assert(X_train.shape[0]==y_train.shape[0]), "The number of images in not equal to the number of lables in training set"
 assert(X_validation.shape[0]==y_validation.shape[0]), "The number of images in not equal to the number of lables in validation set"
 assert(X_test.shape[0]==y_test.shape[0]), "The number of images in not equal to the number of lables in test set"
@@ -73,6 +77,7 @@ data=pd.read_csv(labelFile)
 print("data shape ",data.shape,type(data))
  
 ############################### DISPLAY SOME SAMPLES IMAGES  OF ALL THE CLASSES
+# 可视化部分图标及类别
 num_of_samples = []
 cols = 5
 num_classes = noOfClasses
@@ -89,6 +94,7 @@ for i in range(cols):
  
  
 ############################### DISPLAY A BAR CHART SHOWING NO OF SAMPLES FOR EACH CATEGORY
+# 对类别分布做一个统计 饼图
 print(num_of_samples)
 plt.figure(figsize=(12, 4))
 plt.bar(range(0, num_classes), num_of_samples)
@@ -98,10 +104,11 @@ plt.ylabel("Number of images")
 plt.show()
  
 ############################### PREPROCESSING THE IMAGES
- 
+# 灰度
 def grayscale(img):
     img = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
     return img
+# 直方图均衡化
 def equalize(img):
     img =cv2.equalizeHist(img)
     return img
@@ -110,19 +117,26 @@ def preprocessing(img):
     img = equalize(img)      # STANDARDIZE THE LIGHTING IN AN IMAGE
     img = img/255            # TO NORMALIZE VALUES BETWEEN 0 AND 1 INSTEAD OF 0 TO 255
     return img
- 
+
+# 对所有数据进行预处理
 X_train=np.array(list(map(preprocessing,X_train)))  # TO IRETATE AND PREPROCESS ALL IMAGES
 X_validation=np.array(list(map(preprocessing,X_validation)))
 X_test=np.array(list(map(preprocessing,X_test)))
 cv2.imshow("GrayScale Images",X_train[random.randint(0,len(X_train)-1)]) # TO CHECK IF THE TRAINING IS DONE PROPERLY
  
 ############################### ADD A DEPTH OF 1
+# 增加一维
 X_train=X_train.reshape(X_train.shape[0],X_train.shape[1],X_train.shape[2],1)
 X_validation=X_validation.reshape(X_validation.shape[0],X_validation.shape[1],X_validation.shape[2],1)
 X_test=X_test.reshape(X_test.shape[0],X_test.shape[1],X_test.shape[2],1)
  
  
 ############################### AUGMENTATAION OF IMAGES: TO MAKEIT MORE GENERIC
+# width_shift_range 图像偏移 width_shift_range*width
+# height_shift_range  height_shift_range*height
+# zoom_range: Float or [lower, upper]. Range for random zoom. 随机缩放范围
+# shear_range: Float. Shear Intensity (Shear angle in counter-clockwise direction in degrees) # 剪切-剪切角度-逆时针剪切 
+# rotation_range: Int. Degree range for random rotations. 随机旋转的角度范围
 dataGen= ImageDataGenerator(width_shift_range=0.1,   # 0.1 = 10%     IF MORE THAN 1 E.G 10 THEN IT REFFERS TO NO. OF  PIXELS EG 10 PIXELS
                             height_shift_range=0.1,
                             zoom_range=0.2,  # 0.2 MEANS CAN GO FROM 0.8 TO 1.2
@@ -141,12 +155,14 @@ for i in range(15):
     axs[i].axis('off')
 plt.show()
  
- 
+
+# one-hot
 y_train = to_categorical(y_train,noOfClasses)
 y_validation = to_categorical(y_validation,noOfClasses)
 y_test = to_categorical(y_test,noOfClasses)
  
-############################### CONVOLUTION NEURAL NETWORK MODEL
+############################### CONVOLUTION NEURAL NETWORK MODEL 定义模型
+# 卷积-卷积-池化 卷积-卷积-池化  drop 
 def myModel():
     no_Of_Filters=60
     size_of_Filter=(5,5) # THIS IS THE KERNEL THAT MOVE AROUND THE IMAGE TO GET THE FEATURES.
@@ -176,6 +192,7 @@ def myModel():
 ############################### TRAIN
 model = myModel()
 print(model.summary())
+# 开始训练
 history=model.fit_generator(dataGen.flow(X_train,y_train,batch_size=batch_size_val),steps_per_epoch=steps_per_epoch_val,epochs=epochs_val,validation_data=(X_validation,y_validation),shuffle=1)
  
 ############################### PLOT
@@ -192,6 +209,7 @@ plt.legend(['training','validation'])
 plt.title('Acurracy')
 plt.xlabel('epoch')
 plt.show()
+# 开始评估模型
 score =model.evaluate(X_test,y_test,verbose=0)
 print('Test Score:',score[0])
 print('Test Accuracy:',score[1])
@@ -203,108 +221,3 @@ pickle.dump(model,pickle_out)
 pickle_out.close()
 cv2.waitKey(0)
 
-Test Code
-
-import numpy as np
-import cv2
-import pickle
- 
-#############################################
- 
-frameWidth= 640         # CAMERA RESOLUTION
-frameHeight = 480
-brightness = 180
-threshold = 0.75         # PROBABLITY THRESHOLD
-font = cv2.FONT_HERSHEY_SIMPLEX
-##############################################
- 
-# SETUP THE VIDEO CAMERA
-cap = cv2.VideoCapture(0)
-cap.set(3, frameWidth)
-cap.set(4, frameHeight)
-cap.set(10, brightness)
-# IMPORT THE TRANNIED MODEL
-pickle_in=open("model_trained.p","rb")  ## rb = READ BYTE
-model=pickle.load(pickle_in)
- 
-def grayscale(img):
-img = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
-return img
-def equalize(img):
-img =cv2.equalizeHist(img)
-return img
-def preprocessing(img):
-img = grayscale(img)
-img = equalize(img)
-img = img/255
-return img
-def getCalssName(classNo):
-if   classNo == 0: return 'Speed Limit 20 km/h'
-elif classNo == 1: return 'Speed Limit 30 km/h'
-elif classNo == 2: return 'Speed Limit 50 km/h'
-elif classNo == 3: return 'Speed Limit 60 km/h'
-elif classNo == 4: return 'Speed Limit 70 km/h'
-elif classNo == 5: return 'Speed Limit 80 km/h'
-elif classNo == 6: return 'End of Speed Limit 80 km/h'
-elif classNo == 7: return 'Speed Limit 100 km/h'
-elif classNo == 8: return 'Speed Limit 120 km/h'
-elif classNo == 9: return 'No passing'
-elif classNo == 10: return 'No passing for vechiles over 3.5 metric tons'
-elif classNo == 11: return 'Right-of-way at the next intersection'
-elif classNo == 12: return 'Priority road'
-elif classNo == 13: return 'Yield'
-elif classNo == 14: return 'Stop'
-elif classNo == 15: return 'No vechiles'
-elif classNo == 16: return 'Vechiles over 3.5 metric tons prohibited'
-elif classNo == 17: return 'No entry'
-elif classNo == 18: return 'General caution'
-elif classNo == 19: return 'Dangerous curve to the left'
-elif classNo == 20: return 'Dangerous curve to the right'
-elif classNo == 21: return 'Double curve'
-elif classNo == 22: return 'Bumpy road'
-elif classNo == 23: return 'Slippery road'
-elif classNo == 24: return 'Road narrows on the right'
-elif classNo == 25: return 'Road work'
-elif classNo == 26: return 'Traffic signals'
-elif classNo == 27: return 'Pedestrians'
-elif classNo == 28: return 'Children crossing'
-elif classNo == 29: return 'Bicycles crossing'
-elif classNo == 30: return 'Beware of ice/snow'
-elif classNo == 31: return 'Wild animals crossing'
-elif classNo == 32: return 'End of all speed and passing limits'
-elif classNo == 33: return 'Turn right ahead'
-elif classNo == 34: return 'Turn left ahead'
-elif classNo == 35: return 'Ahead only'
-elif classNo == 36: return 'Go straight or right'
-elif classNo == 37: return 'Go straight or left'
-elif classNo == 38: return 'Keep right'
-elif classNo == 39: return 'Keep left'
-elif classNo == 40: return 'Roundabout mandatory'
-elif classNo == 41: return 'End of no passing'
-elif classNo == 42: return 'End of no passing by vechiles over 3.5 metric tons'
- 
-while True:
- 
-# READ IMAGE
-success, imgOrignal = cap.read()
- 
-# PROCESS IMAGE
-img = np.asarray(imgOrignal)
-img = cv2.resize(img, (32, 32))
-img = preprocessing(img)
-cv2.imshow("Processed Image", img)
-img = img.reshape(1, 32, 32, 1)
-cv2.putText(imgOrignal, "CLASS: " , (20, 35), font, 0.75, (0, 0, 255), 2, cv2.LINE_AA)
-cv2.putText(imgOrignal, "PROBABILITY: ", (20, 75), font, 0.75, (0, 0, 255), 2, cv2.LINE_AA)
-# PREDICT IMAGE
-predictions = model.predict(img)
-classIndex = model.predict_classes(img)
-probabilityValue =np.amax(predictions)
-if probabilityValue > threshold:
-#print(getCalssName(classIndex))
-cv2.putText(imgOrignal,str(classIndex)+" "+str(getCalssName(classIndex)), (120, 35), font, 0.75, (0, 0, 255), 2, cv2.LINE_AA)
-cv2.putText(imgOrignal, str(round(probabilityValue*100,2) )+"%", (180, 75), font, 0.75, (0, 0, 255), 2, cv2.LINE_AA)
-cv2.imshow("Result", imgOrignal)
- 
-if cv2.waitKey(1) and 0xFF == ord('q'):
-break
